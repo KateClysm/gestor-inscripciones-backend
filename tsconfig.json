@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    /* Language and Environment */
+    "target": "ES6",                                     // Versión de JavaScript de salida
+
+    /* Modules */
+    "module": "commonjs",                                // Sistema de módulos
+    "rootDir": "./src",                                  // Carpeta de código fuente
+
+    /* JavaScript Support */
+    "outDir": "./dist",                                  // Carpeta de salida
+
+    /* Interop Constraints */
+    "esModuleInterop": true,                             // Habilitar interoperabilidad con ES6
+    "forceConsistentCasingInFileNames": true,            // Fuerza el uso consistente de mayúsculas y minúsculas /* Ensure that casing is correct in imports. */
+
+    /* Type Checking */
+    "strict": true,                                      // Habilitar todas las comprobaciones estrictas
+    
+    /* Completeness */
+    "skipLibCheck": true                                 // Saltar comprobación de bibliotecas
+  },
+  "include": ["src/**/*.ts"],                            // Archivos que se incluirán en la compilación
+  "exclude": ["node_modules"]                            // Archivos que se excluirán de la compilación
+}

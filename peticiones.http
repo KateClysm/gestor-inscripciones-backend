@@ -1,0 +1,36 @@
+@api = http://localhost:4000  
+
+### getting examples    
+GET {{api}}/examples 
+
+### getting an example
+GET {{api}}/examples/66ba9f7cd55adfd1eef79c63
+
+### create an example
+POST {{api}}/examples
+Content-Type: application/json
+
+# {
+#     "title": "Título de Prueba",
+#     "url": "https://urldeprueba",
+#     "description": "Descripción de prueba"
+# }
+
+{
+    "title": "Título de Prueba 2",
+    "url": "https://urldeprueba2",
+    "description": "Descripción de prueba 2"
+}
+
+### deleting  an example
+DELETE {{api}}/examples/66ba9f57d55adfd1eef79c60
+
+### updating an example
+PUT {{api}}/examples/66ba9f57d55adfd1eef79c60 
+Content-Type: application/json
+
+{
+    "title": "Título de Prueba Actualizadoo",
+    "url": "https://urldepruebaActualizadoo",
+    "description": "descripción de prueba Actualizadoo"
+}
