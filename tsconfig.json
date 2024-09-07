@@ -20,6 +20,9 @@
     /* Completeness */
     "skipLibCheck": true                                 // Saltar comprobación de bibliotecas
   },
-  "include": ["src/**/*.ts"],                            // Archivos que se incluirán en la compilación
+  "include": [
+    "src/**/*.ts",
+    "src/types/express.d.ts"
+    ],                            // Archivos que se incluirán en la compilación
   "exclude": ["node_modules"]                            // Archivos que se excluirán de la compilación
 }
