@@ -1,89 +1,13 @@
-import express, { Request, Response } from 'express';
-import User from '../models/User';
+import { Router } from 'express';
+const router = Router();
 
-const router = express.Router();
+import { isAdmin } from '../middlewares/auth.middleware';
 
-// Crear un nuevo usuario
-router.post('/', async (req: Request, res: Response) => {
-    try {
-        const newUser = new User(req.body);
-        await newUser.save();
-        res.status(201).json(newUser);
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-        } else {
-            res.status(500).json({ message: 'An unknown error occurred' });
-        }
-    }
-});
+import * as userController from '../controllers/user.controller';
 
-// Obtener todos los usuarios
-router.get('/', async (req: Request, res: Response) => {
-    try {
-        const users = await User.find();
-        res.json(users);
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-        } else {
-            res.status(500).json({ message: 'An unknown error occurred' });
-        }
-    }
-});
-
-// Obtener un usuario por ID
-router.get('/:id', async (req: Request, res: Response) => {
-    try {
-        const user = await User.findById(req.params.id);
-        if (user) {
-            res.json(user);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-        } else {
-            res.status(500).json({ message: 'An unknown error occurred' });
-        }
-    }
-});
-
-// Actualizar un usuario por ID
-router.put('/:id', async (req: Request, res: Response) => {
-    try {
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (updatedUser) {
-            res.json(updatedUser);
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-        } else {
-            res.status(500).json({ message: 'An unknown error occurred' });
-        }
-    }
-});
-
-// Eliminar un usuario por ID
-router.delete('/:id', async (req: Request, res: Response) => {
-    try {
-        const deletedUser = await User.findByIdAndDelete(req.params.id);
-        if (deletedUser) {
-            res.json({ message: 'User deleted' });
-        } else {
-            res.status(404).json({ message: 'User not found' });
-        }
-    } catch (error) {
-        if (error instanceof Error) {
-            res.status(400).json({ message: error.message });
-        } else {
-            res.status(500).json({ message: 'An unknown error occurred' });
-        }
-    }
-});
+router.post('/', isAdmin, userController.createUser);
+router.get('/:id', userController.getUser);
+router.put('/:id', userController.updateUser);
+router.delete('/:id', userController.deleteUser);
 
 export default router;
