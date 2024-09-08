@@ -10,10 +10,12 @@ const connectDB = async () => {
                 pass: config.MONGO_PASSWORD,
             }
         );
+        console.log("se conecto a la base de datos");
+        
         console.log('Database is connected to:', db.connection.name);
     } catch (error) {
         console.error('Database connection error:', error);
-        process.exit(1); // Detiene la aplicación si falla la conexión
+        process.exit(1); 
     }
 };
 
