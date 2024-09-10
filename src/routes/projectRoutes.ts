@@ -1,12 +1,14 @@
 import { Router } from 'express';
 const router = Router();
-import { isAdmin } from '../middlewares/auth.middleware';
+import { authenticateToken } from '../middlewares/authenticateToken';
+import { authorizeAdmin } from '../middlewares/authorizeAdmin';
 import * as projectController from '../controllers/project.controller';
 
 router.get('/', projectController.getProjects);
-router.post('/', isAdmin,  projectController.postProject);
 router.get('/:id', projectController.getProject);
-router.delete('/:id', isAdmin, projectController.deleteProject);
-router.put('/:id', isAdmin, projectController.updateProject);
+
+router.post('/', authenticateToken, authorizeAdmin, projectController.postProject);
+router.delete('/:id', authenticateToken, authorizeAdmin, projectController.deleteProject);
+router.put('/:id', authenticateToken, authorizeAdmin, projectController.updateProject);
 
 export default router;

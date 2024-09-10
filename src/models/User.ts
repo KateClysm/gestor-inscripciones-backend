@@ -29,14 +29,14 @@ const userSchema = new Schema<IUser>({
     password: { type: String, required: true },
     role: { type: String, required: true, enum: ['admin', 'mentor', 'student'] },
     studentInfo: {
-        institution: { type: String },
         university: { type: String },
-        major: { type: String }
+        major: { type: String },
+        institution: { type: String, required: true }
     },
     mentorInfo: {
-        institution: { type: String },
-        expertise: [{ type: String }],
-        yearsOfExperience: { type: Number }
+        expertise: [{ type: String, required: true }],
+        yearsOfExperience: { type: Number, required: true },
+        institution: { type: String, required: true }
     }
 }, {
     timestamps: true
@@ -46,7 +46,7 @@ userSchema.pre('save', function (next) {
     const user = this as IUser;
 
     if (user.role === 'student') {
-        if (!user.studentInfo || !user.studentInfo.institution || !user.studentInfo.university || !user.studentInfo.major) {
+        if (!user.studentInfo || !user.studentInfo.institution) {
             return next(new Error('Student information is incomplete'));
         }
     }
